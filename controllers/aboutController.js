@@ -1,4 +1,3 @@
-
 // object (?) to perform path manipulation;
 // https://codeforgeek.com/render-html-file-expressjs/
 const path = require('path');
