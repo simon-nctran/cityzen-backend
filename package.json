@@ -1,8 +1,8 @@
 {
-  "name": "cityzen",
+  "name": "cityzen-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "cityzen web app for INFO30005 Project",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/simon-nctran/cityzen.git"
   },
-  "author": "",
+  "author": "cityzen",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/simon-nctran/cityzen/issues"
