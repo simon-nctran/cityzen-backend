@@ -1,7 +1,7 @@
 const express = require('express');
 
 // add router
-const aboutRouter =express.Router();
+const aboutRouter = express.Router();
 
 // require the controller
 const aboutController = require('../controllers/aboutController');

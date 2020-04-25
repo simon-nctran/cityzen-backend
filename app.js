@@ -12,6 +12,9 @@ app.get('/', (req, res) => {
 // handle about requests
 app.use('/about', aboutRouter);
 
-app.listen(3000, () => {
-    console.log('The cityzen app is listening on port 3000')
+// use environment port or 3000
+// refer: https://youtu.be/pKd0Rpw7O48?t=989
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`The cityzen app is listening on port ${port}`)
 });
