@@ -1,5 +1,12 @@
 ## Cityzen
 
+###Routes Available:
+```
+.../
+.../about
+.../places
+.../places/:tag
+```
 **Requirements:**
 - npm: [https://github.com/npm/cli](https://github.com/npm/cli)
 
@@ -16,7 +23,7 @@ The website depends on the node modules specified in`package.json`. To install t
 
 To run the website locally:
 ```bash
-> node ./bin/www
+> node app.js
 ```
 
 To verify that it is running, open a web browser to:
