@@ -1,6 +1,23 @@
 // get module of users model
 let users = require("../models/users");
 
+// function to handle a request to get all users
+const getAllUsers = (req, res) => {
+  res.send(users); // return the list of users
+};
+
+const getUsersByUsername = (req, res) => {
+
+  const user = users.find(user => user.username === req.params.username);
+
+  if (user) {
+    res.send(user);
+  }
+  else {
+    res.send([]);
+  }
+};
+
 // refer: https://youtu.be/pKd0Rpw7O48?t=1811
 function addUser(req, res) {
   // define json object with the properties from req.body individually (as opposed to 'const new_user = req.body')
@@ -23,5 +40,7 @@ function addUser(req, res) {
 }
 
 module.exports = {
+  getAllUsers,
+  getUsersByUsername,
   addUser,
 };
