@@ -12,7 +12,7 @@ function addUser(req, res) {
   };
   //console.log(new_user);
   if (users.some((user) => user.username === new_user.username)) {
-    //array.some: https://stackoverflow.com/a/8217584
+    //Array.some: https://stackoverflow.com/a/8217584 (used to check if a value exists anywhere in an array)
     res.send("username already exists");
     //console.log(users);
     return;
