@@ -6,9 +6,11 @@ const usersRouter = express.Router();
 // get usersController module
 const usersController = require("../controllers/users");
 
-// handle the GET request at the root of the path
+// handle GET requests at the root of the path
 usersRouter.get("/", (req, res) => usersController.getAllUsers(req, res));
-usersRouter.get("/:username", (req, res) => usersController.getUsersByUsername(req, res));
+usersRouter.get("/:username", (req, res) =>
+  usersController.getUsersByUsername(req, res)
+);
 
 // handle POST requests at root of path
 // refer: https://youtu.be/pKd0Rpw7O48?t=1811

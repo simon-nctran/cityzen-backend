@@ -7,13 +7,11 @@ const getAllUsers = (req, res) => {
 };
 
 const getUsersByUsername = (req, res) => {
-
-  const user = users.find(user => user.username === req.params.username);
+  const user = users.find((user) => user.username === req.params.username);
 
   if (user) {
     res.send(user);
-  }
-  else {
+  } else {
     res.send([]);
   }
 };
@@ -27,15 +25,15 @@ function addUser(req, res) {
     birthYear: req.body.birthYear,
     miscInfo: req.body.miscInfo,
   };
-  //console.log(new_user);
+  //DEBUG: console.log(new_user);
   if (users.some((user) => user.username === new_user.username)) {
     //Array.some: https://stackoverflow.com/a/8217584 (used to check if a value exists anywhere in an array)
     res.send("username already exists");
-    //console.log(users);
+    //DEBUG: console.log(users);
     return;
   }
   users.push(new_user);
-  //console.log(users);
+  //DEBUG: console.log(users);
   res.send(users);
 }
 

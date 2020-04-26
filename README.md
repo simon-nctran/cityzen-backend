@@ -4,10 +4,10 @@
 
 ```
 .../
-.../about
-.../places
+.../about/
+.../places/
 .../places/:tag
-.../users
+.../users/
 .../users/:username
 ```
 
