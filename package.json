@@ -1,0 +1,25 @@
+{
+  "name": "cityzen-app",
+  "version": "1.0.0",
+  "description": "cityzen web app for INFO30005 Project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon-nctran/cityzen.git"
+  },
+  "author": "cityzen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simon-nctran/cityzen/issues"
+  },
+  "homepage": "https://github.com/simon-nctran/cityzen#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  }
+}
