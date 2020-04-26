@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require("express");
 const app = express();
 
 // use middleware for parsing JSON in req.body
@@ -10,20 +10,20 @@ const app = express();
 app.use(express.json());
 
 // set up routes
-const aboutRouter = require('./routes/aboutRouter');
-const placesRouter = require('./routes/placesRouter');
-const usersRouter = require('./routes/usersRouter');
+const aboutRouter = require("./routes/aboutRouter");
+const placesRouter = require("./routes/placesRouter");
+const usersRouter = require("./routes/usersRouter");
 
 // Get home page
-app.get('/', (req, res) => {
-    res.send('<H1>Cityzen</H1>')
+app.get("/", (req, res) => {
+  res.send("<H1>Cityzen</H1>");
 });
 
 // handle routes
-app.use('/about', aboutRouter);
-app.use('/places', placesRouter);
-app.use('/users', usersRouter);
+app.use("/about", aboutRouter);
+app.use("/places", placesRouter);
+app.use("/users", usersRouter);
 
 app.listen(3000, () => {
-    console.log('The cityzen app is listening on port 3000')
+  console.log("The cityzen app is listening on port 3000");
 });
