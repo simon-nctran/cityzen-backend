@@ -7,6 +7,8 @@
 .../about
 .../places
 .../places/:tag
+.../users
+.../users/:username
 ```
 
 #### Questions:
