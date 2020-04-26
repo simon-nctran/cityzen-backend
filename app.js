@@ -1,20 +1,33 @@
-const express = require('express')
+const express = require("express");
 const app = express();
 
-// set up about routes
-const aboutRouter = require('./routes/aboutRouter');
+// use middleware for parsing JSON in req.body
+// refer: https://stackoverflow.com/questions/4295782/how-to-process-post-data-in-node-js
+// refer: https://stackoverflow.com/questions/47232187/express-json-vs-bodyparser-json
+// refer: https://expressjs.com/en/api.html#req.body
+// refer: https://expressjs.com/en/guide/using-middleware.html
+// refer: https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded
+app.use(express.json());
+
+// set up routes
+const aboutRouter = require("./routes/aboutRouter");
+const placesRouter = require("./routes/placesRouter");
+const usersRouter = require("./routes/usersRouter");
 
 // Get home page
-app.get('/', (req, res) => {
-    res.send('<H1>Cityzen</H1>')
+app.get("/", (req, res) => {
+  res.send("<H1>Cityzen</H1>");
 });
 
-// handle about requests
-app.use('/about', aboutRouter);
+// handle routes
+app.use("/about", aboutRouter);
+app.use("/places", placesRouter);
+app.use("/users", usersRouter);
 
-// use environment port or 3000
-// refer: https://youtu.be/pKd0Rpw7O48?t=989
+// have the server listen for requests
 const port = process.env.PORT || 3000;
+// use environment port or port 3000
+// refer: https://youtu.be/pKd0Rpw7O48?t=989
 app.listen(port, () => {
     console.log(`The cityzen app is listening on port ${port}`)
 });
