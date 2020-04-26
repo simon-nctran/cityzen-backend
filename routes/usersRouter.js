@@ -4,7 +4,7 @@ const express = require("express");
 const usersRouter = express.Router();
 
 // get usersController module
-const usersController = require("../controllers/users");
+const usersController = require("../controllers/usersController");
 
 // handle GET requests at the root of the path
 usersRouter.get("/", (req, res) => usersController.getAllUsers(req, res));
