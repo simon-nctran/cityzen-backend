@@ -1,5 +1,5 @@
-// object (?) to perform path manipulation;
-// https://codeforgeek.com/render-html-file-expressjs/
+// "path" is module to perform path manipulation
+// refer: https://codeforgeek.com/render-html-file-expressjs/
 const path = require('path');
 
 // Function to handle a request to get the about information

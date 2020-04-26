@@ -35,6 +35,8 @@ The website depends on the node modules specified in`package.json`. To install t
 
 To run the website locally:
 ```bash
+> npm start
+or
 > node app.js
 ```
 

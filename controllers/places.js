@@ -1,5 +1,5 @@
- // provide the controller a link to the places model
- var places = require('../models/places');
+// provide the controller a link to the places model
+let places = require('../models/places');
 
 // Function to handle a request to get all places
 const getAllPlaces = (req, res) => {
