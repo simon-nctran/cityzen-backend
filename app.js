@@ -9,6 +9,8 @@ const app = express();
 // refer: https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded
 app.use(express.json());
 
+require('./models/db.js')
+
 // set up routes
 const aboutRouter = require("./routes/aboutRouter");
 const placesRouter = require("./routes/placesRouter");

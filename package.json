@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/simon-nctran/cityzen#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "mongoose": "^5.9.14",
     "prettier": "^2.0.5"
   }
 }
