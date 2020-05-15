@@ -1,9 +1,6 @@
 const express = require("express");
 const app = express();
 
-const cors = require("cors");
-app.use(cors());
-
 // use middleware for parsing JSON in req.body
 // refer: https://stackoverflow.com/questions/4295782/how-to-process-post-data-in-node-js
 // refer: https://stackoverflow.com/questions/47232187/express-json-vs-bodyparser-json
