@@ -10,13 +10,13 @@ const usersController = require("../controllers/usersController");
  * Usage:
  * getAllUsers: send a get request to ../users with empty body
  * getUsersByUsername: send a get request to ../users/profile with body {username: "hello"}
- * addUser: send a post request to ../users/insert-user with data about new user followed by json format
+ * addUser: send a post request to ../users/new with data about new user followed by json format
  * loginCheck: send a get request to ../users/login with {username: "username", password: "password"}
  */
 
 usersRouter.get("/", (req, res) => usersController.getAllUsers(req, res));
 usersRouter.get("/profile", usersController.getUsersByUsername);
-usersRouter.post("/insert-user", usersController.addUser);
+usersRouter.post("/new", usersController.addUser);
 usersRouter.post("/login", usersController.loginCheck);
 module.exports = usersRouter;
 

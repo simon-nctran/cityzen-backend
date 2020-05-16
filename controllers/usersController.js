@@ -65,14 +65,14 @@ const loginCheck = (req, res) => {
 }
 
 
-const addUser = function (req, res, next) {
-  const item = {
+const addUser = function (req, res) {
+  const user = {
     username: req.body.username,
     password: req.body.password,
     emailAddress: req.body.emailAddress
   };
 
-  const data = new user(item);
+  const data = new users(user);
   data.save();
 
   res.redirect('/');
