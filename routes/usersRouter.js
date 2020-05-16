@@ -17,7 +17,7 @@ const usersController = require("../controllers/usersController");
 usersRouter.get("/", (req, res) => usersController.getAllUsers(req, res));
 usersRouter.get("/profile", usersController.getUsersByUsername);
 usersRouter.post("/insert-user", usersController.addUser);
-usersRouter.get("/login", usersController.loginCheck);
+usersRouter.post("/login", usersController.loginCheck);
 module.exports = usersRouter;
 
 // handle GET requests at the root of the path

@@ -30,8 +30,8 @@ app.use("/places", placesRouter);
 app.use("/users", usersRouter);
 
 // have the server listen for requests
-const port = process.env.PORT || 3000;
-// use environment port or port 3000
+const port = process.env.PORT || 3001;
+// use environment port or port 3001
 // refer: https://youtu.be/pKd0Rpw7O48?t=989
 app.listen(port, () => {
   console.log(`The cityzen app is listening on port ${port}`);
