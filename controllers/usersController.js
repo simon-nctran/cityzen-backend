@@ -1,6 +1,7 @@
 // get module of users model
 var mongoose = require('mongoose');
 var user = mongoose.model('users')
+var path = require('path');
 /*
 let users = require("../models/users");
 */
@@ -15,6 +16,7 @@ const getAllUsers = (req, res) => {
         status: 500
       });
     } else {
+      //res.sendFile(path.join(__dirname+'/../views/users.html'));
       res.json(data);
     }
   });
@@ -49,23 +51,30 @@ const getUsersByUsername = (req, res) => {
 
 const loginCheck = (req, res) => {
   user.findOne({ username: req.body.username }, function(err,data){
-      if (req.body.password === data.password) {
-        res.json(data);
-      } else {
-        res.send("invalid_password");
+      if (data == null) {
+        res.send("did not find username");
+      }
+
+      else {
+        if (req.body.password === data.password) {
+          res.json(data);
+          //res.send("logged in");
+        } else {
+          res.send("invalid_password");
+        }
       }
   });
 }
 
 
-var addUser = function(req, res, next) {
-  var item = {
-    username:req.body.username,
-    password:req.body.password,
-    emailAddress:req.body.emailAddress
+const addUser = function (req, res, next) {
+  const item = {
+    username: req.body.username,
+    password: req.body.password,
+    emailAddress: req.body.emailAddress
   };
 
-  var data = new user(item);
+  const data = new user(item);
   data.save();
 
   res.redirect('/');
