@@ -1,7 +1,6 @@
 // get module of users model
-var mongoose = require('mongoose');
-var user = mongoose.model('users')
-var path = require('path');
+const mongoose = require('mongoose');
+const users = mongoose.model('users')
 /*
 let users = require("../models/users");
 */
@@ -9,14 +8,13 @@ let users = require("../models/users");
 
 const getAllUsers = (req, res) => {
 
-  user.find({}, function(err,data){
+  users.find({}, function(err,data){
     console.log(data);
     if (err) {
       res.render('error', {
         status: 500
       });
     } else {
-      //res.sendFile(path.join(__dirname+'/../views/users.html'));
       res.json(data);
     }
   });
@@ -37,7 +35,7 @@ const getUsersByUsername = (req, res) => {
 };*/
 
 const getUsersByUsername = (req, res) => {
-  user.findOne({ username: req.body.username }, function(err,data){
+  users.findOne({ username: req.body.username }, function(err,data){
     console.log(data);
     if (err) {
       res.render('error', {
@@ -50,7 +48,7 @@ const getUsersByUsername = (req, res) => {
 }
 
 const loginCheck = (req, res) => {
-  user.findOne({ username: req.body.username }, function(err,data){
+  users.findOne({ username: req.body.username }, function(err,data){
       if (data == null) {
         res.send("did not find username");
       }
