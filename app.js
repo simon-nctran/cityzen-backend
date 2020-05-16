@@ -12,6 +12,8 @@ app.use(cors());
 // refer: https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded
 app.use(express.json());
 
+require('./models/db.js')
+
 // set up routes
 const aboutRouter = require("./routes/aboutRouter");
 const placesRouter = require("./routes/placesRouter");
@@ -28,8 +30,8 @@ app.use("/places", placesRouter);
 app.use("/users", usersRouter);
 
 // have the server listen for requests
-const port = process.env.PORT || 3000;
-// use environment port or port 3000
+const port = process.env.PORT || 3001;
+// use environment port or port 3001
 // refer: https://youtu.be/pKd0Rpw7O48?t=989
 app.listen(port, () => {
   console.log(`The cityzen app is listening on port ${port}`);
