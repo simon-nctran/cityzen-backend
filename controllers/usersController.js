@@ -18,14 +18,18 @@ const getAllUsers = (req, res) => {
 
 /* find a user by username*/
 const getUsersByUsername = (req, res) => {
-  users.findOne({ username: req.body.username }, function(err,data){
+  users.findOne({ username: req.params.username }, function(err,data){
     console.log(data);
     if (err) {
       res.render('error', {
         status: 500
       });
     } else {
-      res.json(data);
+      if (!data) {
+        res.send("user not found");
+      } else{
+        res.json(data);
+      }
     }
   });
 }
