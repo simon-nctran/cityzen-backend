@@ -16,4 +16,3 @@ usersRouter.post("/new", (req, res) => usersController.addUser(req, res));
 usersRouter.post("/login", (req, res) => usersController.loginCheck(req, res));
 
 module.exports = usersRouter;
-
