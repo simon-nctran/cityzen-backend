@@ -11,7 +11,7 @@ const userSchema = new Schema({
   emailAddress: String
 }, {collection: 'users'});
 
-/* create a user shema password checing function*/
+/* create a user schema password checking function*/
 userSchema.methods.checkPassword = function(password) {
   return (password === this.password);
 };

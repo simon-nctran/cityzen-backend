@@ -55,11 +55,23 @@ const addUser = function (req, res) {
     password: req.body.password,
     emailAddress: req.body.emailAddress
   };
+  if (req.body.username == null) {
+    res.send("Please provide a username");
+  } else if (req.body.password == null) {
+    res.send("Please provide a password");
+  } else if (req.body.emailAddress == null) {
+    res.send("Please provide an email address");
+  }
 
-  const data = new users(user);
-  data.save();
-
-  res.redirect('/');
+  users.findOne({ username: req.body.username}, function(err,data) {
+    if (data != null) {
+      res.send("Username already exists");
+    } else {
+        const data = new users(user);
+        data.save();
+        res.redirect('/');
+    }
+  });
 };
 
 module.exports = {
