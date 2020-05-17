@@ -11,8 +11,8 @@ const usersRouter = express.Router();
 const usersController = require("../controllers/usersController");
 
 usersRouter.get("/", (req, res) => usersController.getAllUsers(req, res));
-usersRouter.get("/profile", usersController.getUsersByUsername);
-usersRouter.post("/new", usersController.addUser);
-usersRouter.post("/login", usersController.loginCheck);
+usersRouter.get("/profile", (req, res) => usersController.getUsersByUsername(req, res));
+usersRouter.post("/new", (req, res) => usersController.addUser(req, res));
+usersRouter.post("/login", (req, res) => usersController.loginCheck(req, res));
 module.exports = usersRouter;
 

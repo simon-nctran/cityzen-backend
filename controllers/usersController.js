@@ -33,16 +33,16 @@ const getUsersByUsername = (req, res) => {
 /* check the login, i.e password matches if username exists, if username unregistered in database,
  * send back the corresponding warning message*/
 const loginCheck = (req, res) => {
-  users.findOne({ username: req.body.username }, function(err,data){
+  users.findOne({ username: req.body.username }, function(err, data) {
       if (data == null) {
-        res.send("did not find username");
+        res.send("Username not found");
       }
 
       else {
         if (req.body.password === data.password) {
-          res.json(data);
+          res.send("Login successful")
         } else {
-          res.send("invalid_password");
+          res.send("Invalid password");
         }
       }
   });
@@ -55,6 +55,7 @@ const addUser = function (req, res) {
     password: req.body.password,
     emailAddress: req.body.emailAddress
   };
+
   if (req.body.username == null) {
     res.send("Please provide a username");
   } else if (req.body.password == null) {
@@ -69,7 +70,7 @@ const addUser = function (req, res) {
     } else {
         const data = new users(user);
         data.save();
-        res.redirect('/');
+        res.send("Registration successful");
     }
   });
 };
