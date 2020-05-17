@@ -1,19 +1,8 @@
-/*
-// array of json objects representing users
-const users = [
-  {
-    username: "unimelb",
-    birthYear: "1853",
-    miscInfo: "Is very old",
-  },
-];
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-module.exports = users;
-*/
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-var userSchema = new Schema({
+/* create a userSchema*/
+const userSchema = new Schema({
   username: {
     type: String,
     unique: true
@@ -22,9 +11,11 @@ var userSchema = new Schema({
   emailAddress: String
 }, {collection: 'users'});
 
+/* create a user shema password checing function*/
 userSchema.methods.checkPassword = function(password) {
   return (password === this.password);
 };
 
+/* assign the schema*/
 const user = mongoose.model('users', userSchema);
 module.exports = user;

@@ -1,13 +1,9 @@
-// get module of users model
+/* get module of users model*/
 const mongoose = require('mongoose');
 const users = mongoose.model('users')
-/*
-let users = require("../models/users");
-*/
 
-
+/* find all users and send response to client*/
 const getAllUsers = (req, res) => {
-
   users.find({}, function(err,data){
     console.log(data);
     if (err) {
@@ -19,21 +15,8 @@ const getAllUsers = (req, res) => {
     }
   });
 };
-/*// function to handle a request to get all users
-const getAllUsers = (req, res) => {
-  res.send(users); // return the list of users
-};*/
-/*
-const getUsersByUsername = (req, res) => {
-  const user = users.find((user) => user.username === req.params.username);
 
-  if (user) {
-    res.send(user);
-  } else {
-    res.send([]);
-  }
-};*/
-
+/* find a user by username*/
 const getUsersByUsername = (req, res) => {
   users.findOne({ username: req.body.username }, function(err,data){
     console.log(data);
@@ -47,6 +30,8 @@ const getUsersByUsername = (req, res) => {
   });
 }
 
+/* check the login, i.e password matches if username exists, if username unregistered in database,
+ * send back the corresponding warning message*/
 const loginCheck = (req, res) => {
   users.findOne({ username: req.body.username }, function(err,data){
       if (data == null) {
@@ -56,7 +41,6 @@ const loginCheck = (req, res) => {
       else {
         if (req.body.password === data.password) {
           res.json(data);
-          //res.send("logged in");
         } else {
           res.send("invalid_password");
         }
@@ -64,7 +48,7 @@ const loginCheck = (req, res) => {
   });
 }
 
-
+/* register a new user into database*/
 const addUser = function (req, res) {
   const user = {
     username: req.body.username,
@@ -77,27 +61,6 @@ const addUser = function (req, res) {
 
   res.redirect('/');
 };
-
-/*// refer: https://youtu.be/pKd0Rpw7O48?t=1811
-function addUser(req, res) {
-  // define json object with the properties from req.body individually (as opposed to 'const new_user = req.body')
-  // this is so we can have validation checking on the individual properties
-  const new_user = {
-    username: req.body.username,
-    birthYear: req.body.birthYear,
-    miscInfo: req.body.miscInfo,
-  };
-  //DEBUG: console.log(new_user);
-  if (users.some((user) => user.username === new_user.username)) {
-    //Array.some: https://stackoverflow.com/a/8217584 (used to check if a value exists anywhere in an array)
-    res.send("username already exists");
-    //DEBUG: console.log(users);
-    return;
-  }
-  users.push(new_user);
-  //DEBUG: console.log(users);
-  res.send(users);
-}*/
 
 module.exports = {
   getAllUsers,
