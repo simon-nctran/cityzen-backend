@@ -4,7 +4,8 @@
   "description": "cityzen web app for INFO30005 Project",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha test/**/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
     "mongoose": "^5.9.14"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.2",
     "prettier": "^2.0.5"
   }
 }
