@@ -34,8 +34,8 @@ const getUsersByUsername = (req, res) => {
   });
 }
 
-/* check the login, i.e password matches if username exists, if username unregistered in database,
- * send back the corresponding warning message*/
+/*/!* check the login, i.e password matches if username exists, if username unregistered in database,
+ * send back the corresponding warning message*!/
 const loginCheck = (req, res) => {
   users.findOne({ username: req.body.username }, function(err, data) {
       if (data == null) {
@@ -50,9 +50,42 @@ const loginCheck = (req, res) => {
         }
       }
   });
-}
+}*/
 
-/* register a new user into database*/
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+const loginCheck = (req, res) => {
+  users.findOne({ username: req.body.username }, function(err, data) {
+    if (data == null) {
+      res.send("Username not found");
+    }
+
+    else {
+      bcrypt.compare(req.body.password, data.password, function (err, result) {
+        if (result === true) {
+          res.send('Login successful');
+        } else {
+          res.send('Incorrect password');
+        }
+      });
+    }
+  });
+}
+const addUser = function (req, res) {
+  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+    const data = new users({
+      username: req.body.username,
+      password: hash,
+      emailAddress: req.body.emailAddress
+    });
+    data.save();
+    res.send("Registration successful");
+  });
+};
+
+/*
+/!* register a new user into database*!/
 const addUser = function (req, res) {
   const user = {
     username: req.body.username,
@@ -78,6 +111,7 @@ const addUser = function (req, res) {
     }
   });
 };
+*/
 
 module.exports = {
   getAllUsers,
