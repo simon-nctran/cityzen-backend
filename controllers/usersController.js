@@ -51,7 +51,8 @@ const loginCheck = (req, res) => {
       }
   });
 }*/
-
+// the bcrypt encryption part is based on
+// https://medium.com/@mridu.sh92/a-quick-guide-for-authentication-using-bcrypt-on-express-nodejs-1d8791bb418f
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -72,18 +73,39 @@ const loginCheck = (req, res) => {
     }
   });
 }
+
 const addUser = function (req, res) {
   bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
     const data = new users({
       username: req.body.username,
-      password: hash,
-      emailAddress: req.body.emailAddress
+      password: hash
     });
     data.save();
     res.send("Registration successful");
   });
 };
 
+// update is only available for updating search Options
+const updateUser = function (req, res) {
+
+  const conditions = {
+    username : req.body.username
+  }
+
+  const update = {
+    searchOptions : req.body.searchOptions
+  }
+
+  users.findOneAndUpdate(conditions,update,function(error,result){
+    if(error){
+      res.send("update unsuccessful");
+
+    }else{
+      console.log(result);
+      res.send("update successful");
+    }
+  });
+}
 /*
 /!* register a new user into database*!/
 const addUser = function (req, res) {
@@ -117,5 +139,6 @@ module.exports = {
   getAllUsers,
   getUsersByUsername,
   addUser,
-  loginCheck
+  loginCheck,
+  updateUser
 };

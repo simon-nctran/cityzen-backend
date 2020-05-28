@@ -8,7 +8,7 @@ const userSchema = new Schema({
     unique: true
   },
   password: String,
-  emailAddress: String
+  searchOptions: [{ origin: String, destination: String, poi: String, mode: String}]
 }, {collection: 'users'});
 
 /* create a user schema password checking function*/
