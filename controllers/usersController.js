@@ -74,14 +74,33 @@ const loginCheck = (req, res) => {
   });
 }
 
+// register a new user into database
 const addUser = function (req, res) {
   bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
     const data = new users({
       username: req.body.username,
       password: hash
     });
-    data.save();
-    res.send("Registration successful");
+
+    if (req.body.username == null) {
+      res.send("Please provide a username");
+      return;
+    } else if (req.body.password == null) {
+      res.send("Please provide a password");
+      return;
+    }
+
+    users.findOne({ username: req.body.username}, function(err, result) {
+      if (result != null) {
+        res.send("Username already exists");
+      } else {
+        data.save();
+        res.send("Registration successful");
+      }
+    });
+
+    // data.save();
+    // res.send("Registration successful");
   });
 };
 
