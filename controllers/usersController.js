@@ -34,23 +34,6 @@ const getUsersByUsername = (req, res) => {
   });
 }
 
-/*/!* check the login, i.e password matches if username exists, if username unregistered in database,
- * send back the corresponding warning message*!/
-const loginCheck = (req, res) => {
-  users.findOne({ username: req.body.username }, function(err, data) {
-      if (data == null) {
-        res.send("Username not found");
-      }
-
-      else {
-        if (req.body.password === data.password) {
-          res.send("Login successful")
-        } else {
-          res.send("Invalid password");
-        }
-      }
-  });
-}*/
 // the bcrypt encryption part is based on
 // https://medium.com/@mridu.sh92/a-quick-guide-for-authentication-using-bcrypt-on-express-nodejs-1d8791bb418f
 const bcrypt = require('bcrypt');
@@ -99,8 +82,6 @@ const addUser = function (req, res) {
       }
     });
 
-    // data.save();
-    // res.send("Registration successful");
   });
 };
 
@@ -125,34 +106,6 @@ const updateUser = function (req, res) {
     }
   });
 }
-/*
-/!* register a new user into database*!/
-const addUser = function (req, res) {
-  const user = {
-    username: req.body.username,
-    password: req.body.password,
-    emailAddress: req.body.emailAddress
-  };
-
-  if (req.body.username == null) {
-    res.send("Please provide a username");
-  } else if (req.body.password == null) {
-    res.send("Please provide a password");
-  } else if (req.body.emailAddress == null) {
-    res.send("Please provide an email address");
-  }
-
-  users.findOne({ username: req.body.username}, function(err,data) {
-    if (data != null) {
-      res.send("Username already exists");
-    } else {
-        const data = new users(user);
-        data.save();
-        res.send("Registration successful");
-    }
-  });
-};
-*/
 
 module.exports = {
   getAllUsers,
