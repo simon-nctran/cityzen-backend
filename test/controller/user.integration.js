@@ -1,10 +1,10 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef,node/no-unpublished-require,func-names */
 const chai = require("chai");
 const request = require("supertest");
 const app = require("../../app");
 
 const { expect } = chai;
-describe("API Tests", () => {
+describe("API Tests", function () {
   const task = {
     username: "just_a_test",
     password: "just_a_test",
@@ -13,8 +13,8 @@ describe("API Tests", () => {
     username: "just_a_test",
     searchOptions: [{ origin: "unimelb", destination: "CBD", poi: "KFC", mode: "transporting" }],
   };
-  describe("# Get all users", () => {
-    it("should get all tasks", (done) => {
+  describe("# Get all users", function () {
+    it("should get all tasks", function (done) {
       request(app)
         .get("/users")
         .end((err, res) => {
@@ -25,8 +25,8 @@ describe("API Tests", () => {
     });
   });
 
-  describe("## Create new user ", () => {
-    it("should create a new user", (done) => {
+  describe("## Create new user ", function () {
+    it("should create a new user", function (done) {
       request(app)
         .post("/users/new")
         .send(task)
@@ -37,8 +37,8 @@ describe("API Tests", () => {
         });
     });
   });
-  describe("## Get user by username ", () => {
-    it("should create a new user", (done) => {
+  describe("## Get user by username ", function () {
+    it("should create a new user", function (done) {
       request(app)
         .get("/users/:username")
         .end((err, res) => {
@@ -48,8 +48,8 @@ describe("API Tests", () => {
         });
     });
   });
-  describe("## Login a user ", () => {
-    it("should create a new user", (done) => {
+  describe("## Login a user ", function () {
+    it("should create a new user", function (done) {
       request(app)
         .post("/users/login")
         .send(task)
@@ -60,8 +60,8 @@ describe("API Tests", () => {
         });
     });
   });
-  describe("## Update a user ", () => {
-    it("should create a new user", (done) => {
+  describe("## Update a user ", function () {
+    it("should create a new user", function (done) {
       request(app)
         .put("/users/update")
         .send(taskUpdate)
