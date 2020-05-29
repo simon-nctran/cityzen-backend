@@ -4,6 +4,9 @@ const request = require("supertest");
 const app = require("../../app");
 
 const { expect } = chai;
+
+// Use of arrow functions in mocha is not recommended: https://remarkablemark.org/blog/2016/08/20/arrow-functions-in-mocha/
+
 describe("API Tests", function () {
   const task = {
     username: "just_a_test",
@@ -13,6 +16,7 @@ describe("API Tests", function () {
     username: "just_a_test",
     searchOptions: [{ origin: "unimelb", destination: "CBD", poi: "KFC", mode: "transporting" }],
   };
+
   describe("# Get all users", function () {
     it("should get all tasks", function (done) {
       request(app)
