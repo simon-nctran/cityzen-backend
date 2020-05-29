@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 const chai = require("chai");
 const request = require("supertest");
-
 const app = require("../../app");
 
 const { expect } = chai;
@@ -9,6 +8,10 @@ describe("API Tests", () => {
   const task = {
     username: "just_a_test",
     password: "just_a_test",
+  };
+  const taskUpdate = {
+    username: "just_a_test",
+    searchOptions: [{ origin: "unimelb", destination: "CBD", poi: "KFC", mode: "transporting" }],
   };
   describe("# Get all users", () => {
     it("should get all tasks", (done) => {
@@ -29,6 +32,42 @@ describe("API Tests", () => {
         .send(task)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
+          expect(res.body).to.deep.equal({});
+          done();
+        });
+    });
+  });
+  describe("## Get user by username ", () => {
+    it("should create a new user", (done) => {
+      request(app)
+        .get("/users/:username")
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          expect(res.body).to.deep.equal({});
+          done();
+        });
+    });
+  });
+  describe("## Login a user ", () => {
+    it("should create a new user", (done) => {
+      request(app)
+        .post("/users/login")
+        .send(task)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          expect(res.body).to.deep.equal({});
+          done();
+        });
+    });
+  });
+  describe("## Update a user ", () => {
+    it("should create a new user", (done) => {
+      request(app)
+        .put("/users/update")
+        .send(taskUpdate)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          expect(res.body).to.deep.equal({});
           done();
         });
     });
