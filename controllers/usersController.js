@@ -4,11 +4,11 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 const saltRounds = 10;
-const users = mongoose.model("users");
+const Users = mongoose.model("users");
 
 /* find all users and send response to client */
 const getAllUsers = (req, res) => {
-  users.find({}, (findErr, data) => {
+  Users.find({}, (findErr, data) => {
     console.log(data);
     if (findErr) {
       res.render("findErr", {
@@ -22,7 +22,7 @@ const getAllUsers = (req, res) => {
 
 /* find a user by username */
 const getUsersByUsername = (req, res) => {
-  users.findOne({ username: req.params.username }, (findErr, data) => {
+  Users.findOne({ username: req.params.username }, (findErr, data) => {
     console.log(data);
     if (findErr) {
       res.render("findErr", {
@@ -39,7 +39,7 @@ const getUsersByUsername = (req, res) => {
 // check the login, i.e password matches if username exists, if username unregistered in database,
 // send back the corresponding warning message
 const loginCheck = (req, res) => {
-  users.findOne({ username: req.body.username }, (findErr, data) => {
+  Users.findOne({ username: req.body.username }, (findErr, data) => {
     if (data == null) {
       res.send("Username not found");
     } else {
@@ -58,10 +58,10 @@ const loginCheck = (req, res) => {
 // register a new user into database
 const addUser = (req, res) => {
   bcrypt.hash(req.body.password, saltRounds, (bcryptErr, hash) => {
-    const data = {
+    const newUser = new Users({
       username: req.body.username,
       password: hash,
-    };
+    });
 
     if (req.body.username == null) {
       res.send("Please provide a username");
@@ -72,11 +72,11 @@ const addUser = (req, res) => {
       return;
     }
 
-    users.findOne({ username: req.body.username }, (findErr, result) => {
+    Users.findOne({ username: req.body.username }, (findErr, result) => {
       if (result != null) {
         res.send("Username already exists");
       } else {
-        data.save();
+        newUser.save();
         res.send("Registration successful");
       }
     });
@@ -93,7 +93,7 @@ const updateUser = (req, res) => {
     searchOptions: req.body.searchOptions,
   };
 
-  users.findOneAndUpdate(conditions, update, (findErr, result) => {
+  Users.findOneAndUpdate(conditions, update, (findErr, result) => {
     if (findErr) {
       res.send("update unsuccessful");
     } else {
