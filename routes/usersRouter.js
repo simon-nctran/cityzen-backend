@@ -1,13 +1,9 @@
 const express = require("express");
 
-/*
- * add Router
-*/
+// Create Router
 const usersRouter = express.Router();
 
-/*
- *get usersController module
-*/
+// Require UsersController
 const usersController = require("../controllers/usersController");
 
 usersRouter.get("/", (req, res) => usersController.getAllUsers(req, res));
