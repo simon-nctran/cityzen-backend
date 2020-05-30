@@ -1,15 +1,23 @@
+/* eslint-disable no-underscore-dangle */
+
 // the bcrypt encryption part is based on
 // https://medium.com/@mridu.sh92/a-quick-guide-for-authentication-using-bcrypt-on-express-nodejs-1d8791bb418f
 const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
+const Users = require("../models/users");
 
 const saltRounds = 10;
-const Users = mongoose.model("users");
+
+// Express 4.x API docs: http://expressjs.com/en/4x/api
+// res.send vs res.json: https://medium.com/@punitkmr/use-of-res-json-vs-res-send-vs-res-end-in-express-b50688c0cddf
+// // basically res.send calls res.json if data is object. res.json converts everything to json and sends
+
+// Mongoose API docs: https://mongoosejs.com/docs/guide.html
+// This is for methods called by Users class
 
 /* find all users and send response to client */
 const getAllUsers = (req, res) => {
   Users.find({}, (findErr, data) => {
-    console.log(data);
+    // console.log(data);
     if (findErr) {
       res.render("findErr", {
         status: 500,
@@ -21,6 +29,22 @@ const getAllUsers = (req, res) => {
 };
 
 /* find a user by username */
+const getUsersByUsername = async (req, res) => {
+  const user = await Users.findById(req.user._id).select("-password");
+  // .findByID is mongoose method that searches for item by their MongoDB ID
+  // req.user is given by auth.js middleware (refer to the .get call in usersRouter)
+  // ._id is a property it has
+  // .select() is a mongoose method that excludes/includes certain data from retrieval
+  if (user) {
+    res.send(user);
+  } else {
+    res.status(404).send("User not found");
+    // .status sets the status
+    // status 404 means resource not found
+  }
+};
+
+/*
 const getUsersByUsername = (req, res) => {
   Users.findOne({ username: req.params.username }, (findErr, data) => {
     console.log(data);
@@ -35,15 +59,37 @@ const getUsersByUsername = (req, res) => {
     }
   });
 };
+ */
 
 // check the login, i.e password matches if username exists, if username unregistered in database,
 // send back the corresponding warning message
-const loginCheck = (req, res) => {
+const authenticateLogin = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const userMatch = await Users.findOne({ username });
+    if (!userMatch) {
+      res.status(404).send("Username not found");
+      return;
+    }
+
+    const passwordMatch = await bcrypt.compare(password, userMatch.password);
+    if (!passwordMatch) {
+      res.status(401).send("Incorrect Password");
+      return;
+    }
+
+    const token = await userMatch.generateAuthToken();
+    res.set("x-auth-token", token).send("Login successful");
+  } catch (err) {
+    res.status(500).send("Login failed due to unknown cause");
+    console.error(err);
+  }
+
+  /* 
   Users.findOne({ username: req.body.username }, (findErr, data) => {
     if (data == null) {
       res.send("Username not found");
     } else {
-      // noinspection JSUnresolvedVariable
       bcrypt.compare(req.body.password, data.password, (bcryptErr, result) => {
         if (result === true) {
           res.send("Login successful");
@@ -53,10 +99,48 @@ const loginCheck = (req, res) => {
       });
     }
   });
+  
+   */
 };
 
 // register a new user into database
-const addUser = (req, res) => {
+const addUser = async (req, res) => {
+  // validate input
+  if (req.body.username == null) {
+    res.status(400).send("Please provide a username");
+    return;
+  }
+  if (req.body.password == null) {
+    res.status(400).send("Please provide a password");
+    return;
+  }
+
+  try {
+    // find if username already exists
+    const existingUser = await Users.findOne({ username: req.body.username });
+    if (existingUser) {
+      res.status(400).send("Username already exists");
+      return;
+    }
+
+    const newUser = new Users({
+      username: req.body.username,
+      password: req.body.password,
+    });
+
+    newUser.password = await bcrypt.hash(req.body.password, saltRounds);
+
+    await newUser.save();
+
+    const token = newUser.generateAuthToken();
+    res.set("x-auth-token", token).send("Registration successful");
+    // .set sets the headers
+  } catch (err) {
+    res.status(500).send("Registration failed due to unknown reason");
+    console.log(err);
+  }
+
+  /*
   bcrypt.hash(req.body.password, saltRounds, (bcryptErr, hash) => {
     const newUser = new Users({
       username: req.body.username,
@@ -81,6 +165,7 @@ const addUser = (req, res) => {
       }
     });
   });
+   */
 };
 
 // update is only available for updating search Options
@@ -107,6 +192,6 @@ module.exports = {
   getAllUsers,
   getUsersByUsername,
   addUser,
-  loginCheck,
+  authenticateLogin,
   updateUser,
 };
