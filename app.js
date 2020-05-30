@@ -19,6 +19,7 @@ require("./models/db.js");
 // DEPRECATED: const aboutRouter = require("./deprecated/aboutRouter");
 // DEPRECATED: const placesRouter = require("./deprecated/placesRouter");
 const usersRouter = require("./routes/usersRouter");
+const favouritesRouter = require("./routes/favouritesRouter");
 
 // Get home page
 app.get("/", (req, res) => {
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 // DEPRECATED: app.use("/about", aboutRouter);
 // DEPRECATED: app.use("/places", placesRouter);
 app.use("/users", usersRouter);
+app.use("/favourites", favouritesRouter);
 
 // have the server listen for requests
 const port = process.env.PORT || 3001;
