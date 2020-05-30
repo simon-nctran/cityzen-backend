@@ -6,8 +6,14 @@ const uri =
 
 /* connect to the database */
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   // Options (second parameter) included to remove deprecation warnings
+  // https://mongoosejs.com/docs/deprecations.html
   // Bonus Note: connect resolves to "this" if connection succeeded (i.e. nothing of value)
   // https://mongoosejs.com/docs/api.html#mongoose_Mongoose-connect
   .then(() => console.log("Connected to MongoDB..."))
