@@ -12,7 +12,7 @@ app.use(cors());
 // refer: https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded
 app.use(express.json());
 
-require("./models/db.js");
+require("./models/db");
 // Note: what require() does is run the code in the file given as the argument
 
 // set up routes
