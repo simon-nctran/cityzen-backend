@@ -3,7 +3,6 @@
 // the bcrypt encryption part is based on
 // https://medium.com/@mridu.sh92/a-quick-guide-for-authentication-using-bcrypt-on-express-nodejs-1d8791bb418f
 const bcrypt = require("bcrypt");
-const Users = require("../models/users");
 
 const saltRounds = 10;
 
@@ -13,6 +12,9 @@ const saltRounds = 10;
 
 // Mongoose API docs: https://mongoosejs.com/docs/guide.html
 // This is for methods called by Users class
+const Users = require("../models/users");
+
+// Status Codes: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
 /* find all users and send response to client */
 const getAllUsers = (req, res) => {
@@ -28,8 +30,8 @@ const getAllUsers = (req, res) => {
   });
 };
 
-/* find a user by username */
-const getUsersByUsername = async (req, res) => {
+/* find a user by user id received from JWT */
+const getUserByID = async (req, res) => {
   const user = await Users.findById(req.user._id).select("-password");
   // .findByID is mongoose method that searches for item by their MongoDB ID
   // req.user is given by auth.js middleware (refer to the .get call in usersRouter)
@@ -190,7 +192,7 @@ const updateUser = (req, res) => {
 
 module.exports = {
   getAllUsers,
-  getUsersByUsername,
+  getUserByID,
   addUser,
   authenticateLogin,
   updateUser,
