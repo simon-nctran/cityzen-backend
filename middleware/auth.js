@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 // the .get/post request will handle placing a function in
 module.exports = (req, res, next) => {
   // get the token from the header if present
-  const token = req.headers["x-auth-token"] || req.headers["authorization"];
+  const token = req.headers["x-auth-token"];
   // if no token found, return response (without going to the next middleware)
   if (!token) {
     res.status(401).send("Access denied. No token provided.");

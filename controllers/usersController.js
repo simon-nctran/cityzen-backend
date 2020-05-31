@@ -32,11 +32,11 @@ const getAllUsers = (req, res) => {
 
 /* find a user by user id received from JWT */
 const getUserByID = async (req, res) => {
-  const user = await Users.findById(req.user._id).select("-password");
+  const user = await Users.findById(req.user._id).select("-password -_id");
   // .findByID is mongoose method that searches for item by their MongoDB ID
-  // req.user is given by auth.js middleware (refer to the .get call in usersRouter)
-  // ._id is a property it has
+  // `user._id` property was added to `req` by auth.js middleware (refer to the .get call in usersRouter)
   // .select() is a mongoose method that excludes/includes certain data from retrieval
+  // https://mongoosejs.com/docs/api.html#query_Query-select
   if (user) {
     res.send(user);
   } else {
@@ -81,7 +81,12 @@ const authenticateLogin = async (req, res) => {
     }
 
     const token = await userMatch.generateAuthToken();
-    res.set("x-auth-token", token).send("Login successful");
+    res
+      .set("x-auth-token", token)
+      // .set sets the headers
+      .set("Access-Control-Expose-Headers", "x-auth-token")
+      // Need to include this header because: https://stackoverflow.com/questions/37897523/axios-get-access-to-response-header-fields
+      .send("Login successful");
   } catch (err) {
     res.status(500).send("Login failed due to unknown cause");
     console.error(err);
@@ -135,8 +140,12 @@ const addUser = async (req, res) => {
     await newUser.save();
 
     const token = newUser.generateAuthToken();
-    res.set("x-auth-token", token).send("Registration successful");
-    // .set sets the headers
+    res
+      .set("x-auth-token", token)
+      // .set sets the headers
+      .set("Access-Control-Expose-Headers", "x-auth-token")
+      // Need to include this header because: https://stackoverflow.com/questions/37897523/axios-get-access-to-response-header-fields
+      .send("Registration successful");
   } catch (err) {
     res.status(500).send("Registration failed due to unknown reason");
     console.log(err);
