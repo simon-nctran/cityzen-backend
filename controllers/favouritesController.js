@@ -30,6 +30,7 @@ const addFavourite = async (req, res) => {
   if (!req.is("application/json")) {
     // http://expressjs.com/tr/api.html#req.is
     res.status(400).send("Request content/body is not in JSON format");
+    return;
   }
 
   const { origin, destination, poi, mode } = req.body;
