@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
   const token = req.headers["x-auth-token"];
   // if no token found, return response (without going to the next middleware)
   if (!token) {
-    res.status(401).send("Access denied. No token provided.");
+    res.status(401).send("No authorisation token provided");
     return;
   }
 
@@ -22,6 +22,6 @@ module.exports = (req, res, next) => {
     next();
   } catch (err) {
     // if invalid token
-    res.status(400).send("Invalid token.");
+    res.status(400).send("Invalid or expired authorisation token");
   }
 };
