@@ -68,6 +68,7 @@ const getUsersByUsername = (req, res) => {
 const authenticateLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log(req.body);
     const userMatch = await Users.findOne({ username });
     if (!userMatch) {
       res.status(404).send("Username not found");
