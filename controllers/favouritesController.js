@@ -24,22 +24,6 @@ const getAllFavourites = async (req, res) => {
   }
 };
 
-const deleteFavourite = async (req, res) =>  {
-  try {
-    await Users.findByIdAndUpdate(req.user._id, { $pull: { "searchOptions": {_id: req.params.id} } }, function(err, data){
-      if(err) {
-        return res.status(500).json({'error' : 'error in deleting address'});
-      }
-      else {
-        res.status(200).send("Delete favourite successfully");
-      }
-    });
-  } catch (err) {
-    res.status(500).send("Failed to retrieve favourites due to server error");
-    console.log("Error at deleteFavourite:");
-    console.log(err);
-  }
-}
 // Add a favourite to a user's list
 const addFavourite = async (req, res) => {
   // Validate input
@@ -75,6 +59,19 @@ const addFavourite = async (req, res) => {
   } catch (err) {
     res.status(500).send("Failed to add favourite due to server error");
     console.log("Error at addFavourite:");
+    console.log(err);
+  }
+};
+
+const deleteFavourite = async (req, res) => {
+  try {
+    await Users.findByIdAndUpdate(req.user._id, {
+      $pull: { searchOptions: { _id: req.params.id } },
+    });
+    res.status(200).send("Delete favourite successfully");
+  } catch (err) {
+    res.status(500).send("Failed to delete address");
+    console.log("Error at delete favourite due to server error");
     console.log(err);
   }
 };
