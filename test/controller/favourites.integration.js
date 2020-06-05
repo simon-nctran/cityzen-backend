@@ -7,7 +7,7 @@ const { expect } = chai;
 
 /* learnt from
 https://stackoverflow.com/questions/19594611/node-js-express-mocha-supertest-rest-api-empty-request-body */
-describe("testing a simple application", function () {
+describe("testing the application", function () {
   let token;
   it("should return code 200", function (done) {
     request(app)
@@ -22,7 +22,7 @@ describe("testing a simple application", function () {
       });
   });
 
-  it("should return the token", function (done) {
+  it("should assign the token value", function (done) {
     request(app)
       .post("/users/login")
       .set("Content-Type", "application/json")
@@ -38,7 +38,7 @@ describe("testing a simple application", function () {
       });
   });
 
-  it("should add the favourites", function (done) {
+  it("should add to the favourites using the token", function (done) {
     request(app)
       .post("/favourites")
       .set({ "x-auth-token": token, "Content-Type": "application/json" })
@@ -54,7 +54,7 @@ describe("testing a simple application", function () {
   });
 
   let id;
-  it("should find the favourites", function (done) {
+  it("should find the favourites using the token", function (done) {
     request(app)
       .get("/favourites")
       .set("x-auth-token", token)
@@ -70,7 +70,7 @@ describe("testing a simple application", function () {
       });
   });
 
-  it("should delete the favourites", function (done) {
+  it("should delete the favourites using the token", function (done) {
     request(app)
       .delete("/favourites/" + id)
       .set("x-auth-token", token)

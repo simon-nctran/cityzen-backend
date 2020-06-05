@@ -71,8 +71,6 @@ const deleteFavourite = async (req, res) => {
     res.status(200).send("Delete favourite successfully");
   } catch (err) {
     res.status(500).send("Failed to delete address");
-    console.log("Error at delete favourite due to server error");
-    console.log(err);
   }
 };
 
