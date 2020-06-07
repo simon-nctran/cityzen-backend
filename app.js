@@ -1,7 +1,7 @@
 const express = require("express");
-const app = express();
-
 const cors = require("cors");
+
+const app = express();
 app.use(cors());
 
 // use middleware for parsing JSON in req.body
@@ -12,27 +12,32 @@ app.use(cors());
 // refer: https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded
 app.use(express.json());
 
-require('./models/db.js')
+require("./models/db");
+// Note: what require() does is run the code in the file given as the argument
 
 // set up routes
-const aboutRouter = require("./routes/aboutRouter");
-const placesRouter = require("./routes/placesRouter");
+// DEPRECATED: const aboutRouter = require("./deprecated/aboutRouter");
+// DEPRECATED: const placesRouter = require("./deprecated/placesRouter");
 const usersRouter = require("./routes/usersRouter");
+const favouritesRouter = require("./routes/favouritesRouter");
 
 // Get home page
 app.get("/", (req, res) => {
-  res.send("<H1>Cityzen</H1>");
+  res.send("<H1>Cityzen Home Page</H1>");
 });
 
 // handle routes
-app.use("/about", aboutRouter);
-app.use("/places", placesRouter);
+// DEPRECATED: app.use("/about", aboutRouter);
+// DEPRECATED: app.use("/places", placesRouter);
 app.use("/users", usersRouter);
+app.use("/favourites", favouritesRouter);
 
 // have the server listen for requests
 const port = process.env.PORT || 3001;
 // use environment port or port 3001
 // refer: https://youtu.be/pKd0Rpw7O48?t=989
 app.listen(port, () => {
-  console.log(`The cityzen app is listening on port ${port}`);
+  console.log(`Cityzen Backend is listening on port ${port}`);
 });
+
+module.exports = app;

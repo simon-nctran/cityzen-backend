@@ -1,18 +1,17 @@
 const express = require("express");
 
-/*
- * add Router
-*/
+// Create Router
 const usersRouter = express.Router();
 
-/*
- *get usersController module
-*/
+// Require UsersController
 const usersController = require("../controllers/usersController");
 
+// Require authChecker
+const authChecker = require("../middleware/auth");
+
 usersRouter.get("/", (req, res) => usersController.getAllUsers(req, res));
-usersRouter.get("/:username", (req, res) => usersController.getUsersByUsername(req, res));
+usersRouter.get("/data", authChecker, (req, res) => usersController.getUserByID(req, res));
 usersRouter.post("/new", (req, res) => usersController.addUser(req, res));
-usersRouter.post("/login", (req, res) => usersController.loginCheck(req, res));
+usersRouter.post("/login", (req, res) => usersController.authenticateLogin(req, res));
 
 module.exports = usersRouter;

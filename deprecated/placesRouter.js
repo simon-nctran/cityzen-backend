@@ -4,7 +4,7 @@ const express = require("express");
 const placesRouter = express.Router();
 
 // require the controller
-const placesController = require("../controllers/placesController");
+const placesController = require("./placesController");
 
 // handle the GET request on root of places path
 placesRouter.get("/", (req, res) => placesController.getAllPlaces(req, res));
