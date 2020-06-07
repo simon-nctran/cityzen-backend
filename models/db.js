@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 
 /* provide the link to the database */
 const uri =
-  "mongodb+srv://Yutao:wangyutao123@cluster0-diojo.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://Yutao:" +
+  process.env.MONGO_PASSWORD +
+  "@cluster0-diojo.mongodb.net/test?retryWrites=true&w=majority";
 
 /* connect to the database */
 mongoose

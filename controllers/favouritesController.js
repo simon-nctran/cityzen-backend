@@ -63,7 +63,6 @@ const addFavourite = async (req, res) => {
 
   try {
     await Users.findByIdAndUpdate(req.user._id, { $push: { searchOptions: req.body } });
-    // I honestly have no idea how the $push stuff really works
     // https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate
     // https://docs.mongodb.com/manual/reference/operator/update/push/
     res.status(200).send("Successfully added favourite");

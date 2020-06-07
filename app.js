@@ -16,8 +16,6 @@ require("./models/db");
 // Note: what require() does is run the code in the file given as the argument
 
 // set up routes
-// DEPRECATED: const aboutRouter = require("./deprecated/aboutRouter");
-// DEPRECATED: const placesRouter = require("./deprecated/placesRouter");
 const usersRouter = require("./routes/usersRouter");
 const favouritesRouter = require("./routes/favouritesRouter");
 
@@ -27,8 +25,6 @@ app.get("/", (req, res) => {
 });
 
 // handle routes
-// DEPRECATED: app.use("/about", aboutRouter);
-// DEPRECATED: app.use("/places", placesRouter);
 app.use("/users", usersRouter);
 app.use("/favourites", favouritesRouter);
 

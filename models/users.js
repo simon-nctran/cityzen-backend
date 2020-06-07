@@ -19,14 +19,8 @@ const usersSchema = new mongoose.Schema(
 usersSchema.methods.generateAuthToken = function () {
   // use function () instead of () => because "this" should not be bound to users.js.
   // in simple terms, () => will mess with what "this" is expected to reference
-  const token = jwt.sign({ _id: this._id }, "myprivatekey");
+  const token = jwt.sign({ _id: this._id }, process.env.JWT_KEY);
   return token;
-};
-
-/* Unused ? @Jack, what is this?
-// create a user schema password checking function
-userSchema.methods.checkPassword = (password) => {
-  return password === this.password;
 };
 
 /* assign the schema */
