@@ -19,13 +19,10 @@ const Users = require("../models/users");
 /* find all users and send response to client */
 const getAllUsers = (req, res) => {
   Users.find({}, (findErr, data) => {
-    // console.log(data);
     if (findErr) {
-      res.render("findErr", {
-        status: 500,
-      });
+      res.status(500).send("Database error");
     } else {
-      res.json(data);
+      res.send(data);
     }
   });
 };
@@ -45,23 +42,6 @@ const getUserByID = async (req, res) => {
     // status 404 means resource not found
   }
 };
-
-/*
-const getUsersByUsername = (req, res) => {
-  Users.findOne({ username: req.params.username }, (findErr, data) => {
-    console.log(data);
-    if (findErr) {
-      res.render("findErr", {
-        status: 500,
-      });
-    } else if (!data) {
-      res.send("User not found");
-    } else {
-      res.json(data);
-    }
-  });
-};
- */
 
 // check the login, i.e password matches if username exists, if username unregistered in database,
 // send back the corresponding warning message
@@ -92,23 +72,6 @@ const authenticateLogin = async (req, res) => {
     res.status(500).send("Login failed due to unknown cause");
     console.error(err);
   }
-
-  /* 
-  Users.findOne({ username: req.body.username }, (findErr, data) => {
-    if (data == null) {
-      res.send("Username not found");
-    } else {
-      bcrypt.compare(req.body.password, data.password, (bcryptErr, result) => {
-        if (result === true) {
-          res.send("Login successful");
-        } else {
-          res.send("Incorrect password");
-        }
-      });
-    }
-  });
-  
-   */
 };
 
 // register a new user into database
@@ -151,33 +114,6 @@ const addUser = async (req, res) => {
     res.status(500).send("Registration failed due to unknown reason");
     console.log(err);
   }
-
-  /*
-  bcrypt.hash(req.body.password, saltRounds, (bcryptErr, hash) => {
-    const newUser = new Users({
-      username: req.body.username,
-      password: hash,
-    });
-
-    if (req.body.username == null) {
-      res.send("Please provide a username");
-      return;
-    }
-    if (req.body.password == null) {
-      res.send("Please provide a password");
-      return;
-    }
-
-    Users.findOne({ username: req.body.username }, (findErr, result) => {
-      if (result != null) {
-        res.send("Username already exists");
-      } else {
-        newUser.save();
-        res.send("Registration successful");
-      }
-    });
-  });
-   */
 };
 
 // update is only available for updating search Options

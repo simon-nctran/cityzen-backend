@@ -42,7 +42,7 @@ describe("testing the application", function () {
     request(app)
       .post("/favourites")
       .set({ "x-auth-token": token, "Content-Type": "application/json" })
-      .send({ origin: "unimelb", destination: "CBD", poi: "Coffee", mode: "Cycling" })
+      .send({ origin: "unimelb", destination: "CBD", poi: "Cafe", mode: "cycling" })
       .expect(200)
       .end(function (err, res) {
         if (err) {

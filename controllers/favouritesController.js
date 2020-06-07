@@ -10,8 +10,19 @@ const Users = require("../models/users");
 
 // Status Codes: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
-const poiOptions = ["Coffee", "Toilet", "Food", "Shopping", "Fuel", "Accommodation"];
-const modeOptions = ["Driving", "Cycling", "Walking"];
+const poiOptions = [
+  "Bagel",
+  "Cafe",
+  "Fuel",
+  "Hotel",
+  "Parking",
+  "Pharmacy",
+  "Police Station",
+  "Post Office",
+  "Restaurant",
+  "Supermarket",
+];
+const modeOptions = ["driving", "cycling", "walking"];
 
 const getAllFavourites = async (req, res) => {
   try {
