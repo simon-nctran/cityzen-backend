@@ -6,15 +6,11 @@ const bcrypt = require("bcrypt");
 
 const saltRounds = 10;
 
-// Express 4.x API docs: http://expressjs.com/en/4x/api
-// res.send vs res.json: https://medium.com/@punitkmr/use-of-res-json-vs-res-send-vs-res-end-in-express-b50688c0cddf
-// // basically res.send calls res.json if data is object. res.json converts everything to json and sends
-
 // Mongoose API docs: https://mongoosejs.com/docs/guide.html
 // This is for methods called by Users class
 const Users = require("../models/users");
 
-// Status Codes: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+// Express 4.x API docs: http://expressjs.com/en/4x/api
 
 /* find all users and send response to client */
 const getAllUsers = (req, res) => {

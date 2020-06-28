@@ -13,7 +13,6 @@ app.use(cors());
 app.use(express.json());
 
 require("./models/db");
-// Note: what require() does is run the code in the file given as the argument
 
 // set up routes
 const usersRouter = require("./routes/usersRouter");
@@ -30,8 +29,6 @@ app.use("/favourites", favouritesRouter);
 
 // have the server listen for requests
 const port = process.env.PORT || 3001;
-// use environment port or port 3001
-// refer: https://youtu.be/pKd0Rpw7O48?t=989
 app.listen(port, () => {
   console.log(`Cityzen Backend is listening on port ${port}`);
 });

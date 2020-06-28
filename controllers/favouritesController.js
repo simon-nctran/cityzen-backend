@@ -5,10 +5,6 @@
 const Users = require("../models/users");
 
 // Express 4.x API docs: http://expressjs.com/en/4x/api
-// res.send vs res.json: https://medium.com/@punitkmr/use-of-res-json-vs-res-send-vs-res-end-in-express-b50688c0cddf
-// // basically res.send calls res.json if data is object. res.json converts everything to json and sends
-
-// Status Codes: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
 const poiOptions = [
   "Bagel",
